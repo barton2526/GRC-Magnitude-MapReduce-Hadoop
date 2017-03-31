@@ -14,14 +14,14 @@ import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
 public class XMLDriver extends Configured implements Tool{
-	private static final String INPUT_PATH = "/user/2288733m/team.xml";
+	private static final String INPUT_PATH = "/path/to/team.xml";
 
     //Run via: java XML.HelloWorld.XMLDriver /full/file/path/to/projectstats.xml projectName numberWhitelistedProjects
 
 	public int run(String[] args) throws Exception {
         Configuration conf = new Configuration(getConf());
-			conf.addResource(new Path("/local/bd4/bd4-hadoop-ug/conf/core-site.xml"));
-		conf.set("XMLConvert.jar", "file:///users/msc/2288733m/IdeaProjects/XML_Jar/XMLConvert.jar"); //Only necessary for eclipse?
+			conf.addResource(new Path("/path/to/core-site.xml"));
+		conf.set("XMLConvert.jar", "file:///path/to/IdeaProjects/XML_Jar/XMLConvert.jar"); //Only necessary for eclipse?
 			//Setting vars for start and end of each XML entry
 		    conf.set("xmlinput.start", "<user>");
 		    conf.set("xmlinput.end", "</user>");
