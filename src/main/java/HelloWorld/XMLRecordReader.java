@@ -1,7 +1,5 @@
 package HelloWorld;
 
-import java.io.IOException;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
@@ -10,9 +8,12 @@ import org.apache.hadoop.io.DataOutputBuffer;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.InputSplit;
-import org.apache.hadoop.mapreduce.RecordReader;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
+import org.apache.hadoop.mapreduce.RecordReader;
+
+
+import java.io.IOException;
 
 public class XMLRecordReader extends RecordReader<LongWritable, Text>{
       //Static declaration of keys for conf vars
@@ -43,8 +44,8 @@ public class XMLRecordReader extends RecordReader<LongWritable, Text>{
           FileSystem fs = file.getFileSystem(conf);
           fsin = fs.open(fileSplit.getPath());
           fsin.seek(start);
-
       }
+
       @Override
       public boolean nextKeyValue() throws IOException,
       InterruptedException {
@@ -69,11 +70,13 @@ public class XMLRecordReader extends RecordReader<LongWritable, Text>{
       private boolean readUntilMatch(byte[] match, boolean withinBlock)
     	        throws IOException {
     	            int i = 0;
+    	            // BAD VERY BAD
     	            while (true) {
     	                int b = fsin.read();
     	                // end of file:
-    	                    if (b == -1)
-    	                        return false;
+    	                    if (b == -1) {
+                                return false;
+                            }
     	                // save to buffer:
     	                    if (withinBlock)
     	                        buffer.write(b);
@@ -82,11 +85,14 @@ public class XMLRecordReader extends RecordReader<LongWritable, Text>{
     	                        i++;
     	                        if (i >= match.length)
     	                            return true;
-    	                    } else
-    	                        i = 0;
+    	                    } else {
+    	                        // is this necessary?
+                                i = 0;
+                            }
     	                    // see if we've passed the stop point:
-    	                    if (!withinBlock && i == 0 && fsin.getPos() >= end)
-    	                        return false;
+    	                    if (!withinBlock && i == 0 && fsin.getPos() >= end) {
+                                return false;
+                            }
     	            }
     	        }
       @Override

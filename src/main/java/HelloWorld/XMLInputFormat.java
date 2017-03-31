@@ -12,7 +12,6 @@ public class XMLInputFormat extends TextInputFormat{
 	 public RecordReader<LongWritable, Text> createRecordReader(
 	            InputSplit split, TaskAttemptContext context) {
 	        return new XMLRecordReader();
-	
 	 }
 	
 }

@@ -31,8 +31,9 @@ public class xmlreducer extends Reducer<Text, DoubleWritable, Text, DoubleWritab
         //System.out.println("totalRAC b4: " + totalRAC);
         Double valueRAC = new Double(0);
 
-        for (Iterator<DoubleWritable> it = values.iterator(); it.hasNext(); )
+        for (Iterator<DoubleWritable> it = values.iterator(); it.hasNext(); ) {
             valueRAC += it.next().get();
+        }
 
         //Sending the key and corresponding calculated sum into a hashmap!
         try {
