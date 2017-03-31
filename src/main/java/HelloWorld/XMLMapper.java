@@ -58,8 +58,8 @@ public class XMLMapper extends Mapper<LongWritable, Text, Text, DoubleWritable> 
 			}
             try {
                 //Min avgRAC of 1!
-                if (Double.parseDouble(propertyAVGRAC.trim()) > ((double) 1)) {
-                    //System.out.println("AVGRAC > 1");
+                if (Double.parseDouble(propertyAVGRAC.trim()) >= ((double) 1)) {
+                    //System.out.println("AVGRAC >= 1");
                     DoubleWritable avgRAC = new DoubleWritable(Math.ceil(Double.parseDouble(propertyAVGRAC.trim())));
                     context.write(new Text(propertyCPID.trim()), avgRAC);
                 }
